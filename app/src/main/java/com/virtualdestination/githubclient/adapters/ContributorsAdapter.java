@@ -14,6 +14,9 @@ import com.virtualdestination.githubclient.objects.Contributor;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Rashid on 26/11/2017.
  */
@@ -27,16 +30,17 @@ public class ContributorsAdapter extends RecyclerView.Adapter<ContributorsAdapte
 
 
     public static class ContributorsViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.textView_name)
         TextView titleTextView;
+        @BindView(R.id.textView_commits)
         TextView commitsTextView;
+        @BindView(R.id.imageView_avatar)
         ImageView avatarImageView;
 
 
         public ContributorsViewHolder(View v) {
             super(v);
-            avatarImageView = v.findViewById(R.id.imageView_avatar);
-            titleTextView = v.findViewById(R.id.textView_name);
-            commitsTextView = v.findViewById(R.id.textView_commits);
+            ButterKnife.bind(this, v);
         }
     }
 

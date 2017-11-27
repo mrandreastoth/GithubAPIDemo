@@ -6,6 +6,8 @@ import android.content.Context;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by Rashid on 26/11/2017.
  */
@@ -28,6 +30,8 @@ public class GithubApplication extends Application {
         super.onCreate();
 
         instance = this;
+
+        ButterKnife.setDebug(BuildConfig.DEBUG);
 
         Picasso.Builder builder = new Picasso.Builder(this);
         builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));

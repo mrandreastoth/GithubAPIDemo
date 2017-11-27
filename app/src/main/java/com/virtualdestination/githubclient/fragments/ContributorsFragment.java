@@ -25,17 +25,20 @@ import com.virtualdestination.githubclient.utilities.GeneralUtilities;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Rashid on 26/11/2017.
  */
 
 public class ContributorsFragment extends Fragment implements ContributorsInterface {
-
-    private Button fetchRepositories;
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.button_fetch)
+    Button fetchRepositories;
+    @BindView(R.id.list_contributors)
+    RecyclerView mRecyclerView;
     private ApiInterface apiService;
-
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
     private ContributorsController repositoryController = new ContributorsController();
 
     @Override
@@ -43,9 +46,7 @@ public class ContributorsFragment extends Fragment implements ContributorsInterf
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_repo, container, false);
 
-
-        fetchRepositories = view.findViewById(R.id.button_fetch);
-        mRecyclerView = view.findViewById(R.id.list_contributors);
+        ButterKnife.bind(this, view);
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage(getString(R.string.loading_message));

@@ -12,12 +12,6 @@ import com.virtualdestination.githubclient.GithubApplication;
 
 public class GeneralUtilities {
 
-    public static String getApiUrl(String relativeUrl) {
-        String serviceURL = Constants.GITHUB_API_PATH;
-
-        return serviceURL + relativeUrl;
-    }
-
     public static boolean checkInternetConnection() {
         ConnectivityManager cm = (ConnectivityManager) GithubApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
