@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.virtualdestination.githubclient.Constants;
 import com.virtualdestination.githubclient.GithubApplication;
 
 /**

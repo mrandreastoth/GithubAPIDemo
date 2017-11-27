@@ -126,6 +126,5 @@
     <orderEntry type="library" name="1_common-1.0.0" level="project" />
     <orderEntry type="library" name="appcompat-v7-26.1.0" level="project" />
     <orderEntry type="library" name="android-shape-imageview-0.9.3" level="project" />
-    <orderEntry type="library" name="android-networking-1.0.0" level="project" />
   </component>
 </module>

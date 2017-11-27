@@ -12,7 +12,7 @@ public class ApiController {
     public static final String BASE_URL = "https://api.github.com";
 
     private static Retrofit retrofit = null;
-    
+
     public static Retrofit getClient() {
         if (retrofit==null) {
             retrofit = new Retrofit.Builder()
