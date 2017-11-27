@@ -14,10 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.androidnetworking.error.ANError;
 import com.virtualdestination.githubclient.R;
 import com.virtualdestination.githubclient.adapters.ContributorsAdapter;
+import com.virtualdestination.githubclient.apicontrollers.ApiController;
 import com.virtualdestination.githubclient.apicontrollers.ContributorsController;
+import com.virtualdestination.githubclient.interfaces.ApiInterface;
 import com.virtualdestination.githubclient.interfaces.ContributorsInterface;
 import com.virtualdestination.githubclient.objects.Contributor;
 import com.virtualdestination.githubclient.utilities.GeneralUtilities;
@@ -30,8 +31,9 @@ import java.util.List;
 
 public class ContributorsFragment extends Fragment implements ContributorsInterface {
 
-    Button fetchRepositories;
-    RecyclerView mRecyclerView;
+    private Button fetchRepositories;
+    private RecyclerView mRecyclerView;
+    private ApiInterface apiService;
 
     ProgressDialog progressDialog;
     private ContributorsController repositoryController = new ContributorsController();
@@ -54,6 +56,8 @@ public class ContributorsFragment extends Fragment implements ContributorsInterf
         if(! GeneralUtilities.checkInternetConnection() ){
             fetchRepositories.setEnabled(false);
             Toast.makeText(getActivity(), getString(R.string.loading_message), Toast.LENGTH_LONG).show();
+        } else {
+            apiService = ApiController.getClient().create(ApiInterface.class);
         }
 
 
@@ -82,8 +86,8 @@ public class ContributorsFragment extends Fragment implements ContributorsInterf
     }
 
     @Override
-    public void onError(ANError error){
-        error.printStackTrace();
+    public void onError(Throwable throwable){
+        throwable.printStackTrace();
         hideProgressDialog();
         showFailureDialog();
     }
@@ -91,7 +95,7 @@ public class ContributorsFragment extends Fragment implements ContributorsInterf
 
     public void loadContributors(){
         showProgressDialog();
-        repositoryController.GetRepositoryContributors(this);
+        repositoryController.FetchRepositoryContributors(this, apiService);
     }
 
 

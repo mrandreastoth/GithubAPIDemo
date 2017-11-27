@@ -1,8 +1,5 @@
 package com.virtualdestination.githubclient.interfaces;
 
-import android.support.annotation.Nullable;
-
-import com.androidnetworking.error.ANError;
 import com.virtualdestination.githubclient.objects.Contributor;
 
 import java.util.List;
@@ -13,7 +10,8 @@ import java.util.List;
 
 public interface ContributorsInterface {
 
-    void fetchContributors(@Nullable List<Contributor> contributorsList);
+    void fetchContributors(List<Contributor> contributorsList);
 
-    void onError(ANError error);
+    void onError(Throwable t);
+
 }
