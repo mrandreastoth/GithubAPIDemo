@@ -1,7 +1,6 @@
 package com.virtualdestination.githubclient.fragments;
 
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.virtualdestination.githubclient.R;
@@ -37,8 +37,9 @@ public class ContributorsFragment extends Fragment implements ContributorsInterf
     Button fetchRepositories;
     @BindView(R.id.list_contributors)
     RecyclerView mRecyclerView;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
     private ApiInterface apiService;
-    private ProgressDialog progressDialog;
     private ContributorsController repositoryController = new ContributorsController();
 
     @Override
@@ -48,12 +49,6 @@ public class ContributorsFragment extends Fragment implements ContributorsInterf
 
         ButterKnife.bind(this, view);
 
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage(getString(R.string.loading_message));
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-
-
         if(! GeneralUtilities.checkInternetConnection() ){
             fetchRepositories.setEnabled(false);
             Toast.makeText(getActivity(), getString(R.string.loading_message), Toast.LENGTH_LONG).show();
@@ -61,7 +56,7 @@ public class ContributorsFragment extends Fragment implements ContributorsInterf
             apiService = ApiController.getClient().create(ApiInterface.class);
         }
 
-
+        
         fetchRepositories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,15 +97,11 @@ public class ContributorsFragment extends Fragment implements ContributorsInterf
 
 
     public void showProgressDialog(){
-        if(!progressDialog.isShowing()){
-            progressDialog.show();
-        }
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     public void hideProgressDialog(){
-        if(progressDialog.isShowing()){
-            progressDialog.hide();
-        }
+       progressBar.setVisibility(View.INVISIBLE);
     }
 
     public void showFailureDialog() {
