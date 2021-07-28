@@ -17,29 +17,23 @@ import com.virtualdestination.githubclient.R
 import com.virtualdestination.githubclient.adapters.ContributorsAdapter
 import com.virtualdestination.githubclient.apicontrollers.ApiController
 import com.virtualdestination.githubclient.apicontrollers.ContributorsController
+import com.virtualdestination.githubclient.databinding.FragmentContributorsBinding
 import com.virtualdestination.githubclient.interfaces.ApiInterface
 import com.virtualdestination.githubclient.interfaces.ContributorsInterface
 import com.virtualdestination.githubclient.models.Contributor
 import com.virtualdestination.githubclient.utilities.GeneralUtilities
 
 
-class ContributorsFragment : Fragment(), ContributorsInterface {
+class ContributorsFragment : Fragment(R.layout.fragment_contributors), ContributorsInterface {
 
-    private var fetchRepositories: Button? = null
-    private var mRecyclerView: RecyclerView? = null
-    private var progressBar: ProgressBar? = null
     private var apiService: ApiInterface? = null
-
     private val repositoryController: ContributorsController = ContributorsController()
+    private var viewBinding: FragmentContributorsBinding? = null
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
-        val view: View = inflater.inflate(R.layout.fragment_repo, container, false)
-
-        fetchRepositories = view.findViewById(R.id.button_fetch)
-        progressBar = view.findViewById(R.id.progressBar)
-        mRecyclerView = view.findViewById(R.id.list_contributors)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewBinding = FragmentContributorsBinding.bind(view)
 
         if (!GeneralUtilities.isOnline(requireContext())) {
             Toast.makeText(requireContext(), getString(R.string.loading_message), Toast.LENGTH_LONG).show()
@@ -48,14 +42,17 @@ class ContributorsFragment : Fragment(), ContributorsInterface {
         }
 
         loadContributors()
+    }
 
-        return view
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewBinding = null
     }
 
     override fun fetchContributors(contributorsList: List<Contributor?>) {
-        val adapter = ContributorsAdapter(contributorsList, R.layout.contributor_item, requireContext())
-        mRecyclerView!!.layoutManager = LinearLayoutManager(requireContext())
-        mRecyclerView!!.adapter = adapter
+        val adapter = ContributorsAdapter(contributorsList, requireContext())
+        viewBinding!!.rvContributors.layoutManager = LinearLayoutManager(requireContext())
+        viewBinding!!.rvContributors.adapter = adapter
         hideProgressDialog()
     }
 
@@ -71,11 +68,11 @@ class ContributorsFragment : Fragment(), ContributorsInterface {
     }
 
     private fun showProgressDialog() {
-        progressBar!!.visibility = View.VISIBLE
+        viewBinding!!.progressBar.visibility = View.VISIBLE
     }
 
     private fun hideProgressDialog() {
-        progressBar!!.visibility = View.INVISIBLE
+        viewBinding!!.progressBar.visibility = View.INVISIBLE
     }
 
     private fun showFailureDialog() {
@@ -83,7 +80,7 @@ class ContributorsFragment : Fragment(), ContributorsInterface {
             val dialogClickListener: DialogInterface.OnClickListener = object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     when (which) {
-                        DialogInterface.BUTTON_POSITIVE -> fetchRepositories!!.visibility = View.VISIBLE
+                        DialogInterface.BUTTON_POSITIVE -> viewBinding!!.btnFetch.visibility = View.VISIBLE
                     }
                 }
             }
