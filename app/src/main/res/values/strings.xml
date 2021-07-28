@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Github Client</string>
+    <string name="app_name">Demo: Github Client</string>
 
 
     <string name="commit_counts">%1$d commits</string>
@@ -10,7 +10,7 @@
 
 
     // Messages
-    <string name="loading_message">Fetching Contributors. Please wait...</string>
+    <string name="loading_message">Fetching Contributors. Please wait…</string>
     <string name="fetching_contributors_error">There seems to be an error fetching contributors list. Try again later</string>
     <string name="connectivity_error">No internet connection. Try again.</string>
 </resources>
