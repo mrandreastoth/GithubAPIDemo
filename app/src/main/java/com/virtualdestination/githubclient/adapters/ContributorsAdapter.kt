@@ -25,7 +25,10 @@ class ContributorsAdapter(private val mRepoContributors: List<Contributor?>, pri
             binding.textViewName.text = contributor!!.login
             binding.textViewCommits.text = mContext.getString(R.string.commit_counts, contributor.contributions)
 
-            Glide.with(mContext).load(contributor.avatarUrl).centerCrop().placeholder(R.drawable.image_github).into(binding.imageViewAvatar)
+            Glide.with(mContext).load(contributor.avatarUrl)
+                .centerCrop()
+                .placeholder(R.drawable.image_github)
+                .into(binding.imageViewAvatar)
         }
     }
 

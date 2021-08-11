@@ -10,8 +10,7 @@ data class Contributor(
     @SerializedName("id")
     val id: Int = 0,
 
-    @SerializedName("avatar_url")
-    val avatarUrl: String = "",
+    @SerializedName("avatar_url") var avatarUrl: String = "",
 
     @SerializedName("gravatar_id")
     val gravatarId: String = "",
